@@ -16,8 +16,10 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($koneksi, $sql);
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
+
         $_SESSION['username'] = $row['username'];
         $_SESSION['id'] = $row['id'];
+
         header("Location: dashboard.php?page=dashboard");
     } else {
         echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
