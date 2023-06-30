@@ -17,6 +17,9 @@
                 case 'kategori_artikel':
                     include "kategori_artikel/content-header.php";
                     break;
+                case 'about':
+                    include "about/content-header.php";
+                    break;
                 default:
                     echo "<center><h3>Maaf. Halaman tidak ditemukan!</h3></center>";
                     break;

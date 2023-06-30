@@ -4,7 +4,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
 ?>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="<?= $base_url ?>/dashboard.php?page=dashboard" class="brand-link">
+    <a href="<?= $base_url ?>admin/dashboard.php?page=dashboard" class="brand-link">
         <span class="brand-text font-weight-light"><b>ADMIN DASHBOARD</b></span>
     </a>
     <div class="sidebar">
@@ -52,6 +52,15 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                         <i class="nav-icon fas fa-tag"></i>
                         <p>
                             Kategori Artikel
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= $base_url ?>admin/about/index.php?id=1&page=about"
+                        class="nav-link <?php echo ($page == 'about') ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-tag"></i>
+                        <p>
+                            about
                         </p>
                     </a>
                 </li>

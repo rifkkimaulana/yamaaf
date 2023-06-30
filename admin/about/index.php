@@ -2,22 +2,17 @@
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
-
 include("../../config.php");
 include('session.php');
 
+$id = $_GET['id'];
 if (isset($_POST['update'])) {
-    $judul_artikel = @$_POST['judul_artikel'];
-    $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($_POST["judul_artikel"])));
-    $created_time = date("Y-m-d H:i:s");
-    $user_id = $_SESSION['id'];
-    $kategori = @$_POST['kategori'];
-    $content_artikel = @$_POST['content_artikel'];
+    $isi1 = $_POST['isi1'];
+    $isi2 = $_POST['isi2'];
 
     // Memeriksa apakah ada file gambar yang diunggah
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $file = $_FILES['image'];
-        $id_kategori = isset($_POST['id_kategori']) ? $_POST['id_kategori'] : $data['id_kategori'];
 
         // Memeriksa tipe file
         $allowedTypes = array('image/jpeg', 'image/png');
@@ -45,9 +40,8 @@ if (isset($_POST['update'])) {
         if (move_uploaded_file($fileTmpName, $uploadDir . $upload)) {
             // Melakukan query UPDATE setelah file berhasil diunggah
             // Menghapus gambar lama jika ada
-            $artikel_id = $_GET['id'];
-            $query_artikel = mysqli_query($koneksi, "SELECT * FROM tb_artikel WHERE id='$artikel_id'");
-            $data = mysqli_fetch_array($query_artikel);
+            $query_about = mysqli_query($koneksi, "SELECT * FROM tb_about WHERE id='$id'");
+            $data = mysqli_fetch_array($query_about);
             $row_gambar = $data['image'];
 
             if (!empty($fileName) && $fileName !== $row_gambar) {
@@ -57,13 +51,13 @@ if (isset($_POST['update'])) {
                 }
             }
 
-            $result = mysqli_query($koneksi, "UPDATE tb_artikel SET judul_artikel='$judul_artikel', content_artikel='$content_artikel', id_kategori='$kategori', user_id='$user_id', created_time='$created_time', image='$uploaddb' WHERE id='$artikel_id'");
+            $result = mysqli_query($koneksi, "UPDATE tb_about SET isi1='$isi1', isi2='$isi2','image='$uploaddb WHERE id='$id'");
 
             if ($result) {
-                echo "<script>window.location.href = '../../admin/dashboard.php?page=artikel';</script>";
+                echo "<script>window.location.href = '../../admin/about/index.php?id=1&page=about';</script>";
                 exit;
             } else {
-                echo "<script>alert('Gagal mengubah artikel!');</script>";
+                echo "<script>alert('Gagal mengubah about!');</script>";
                 exit;
             }
         } else {
@@ -72,14 +66,14 @@ if (isset($_POST['update'])) {
         }
     } else {
         // Tidak ada file gambar yang diunggah, hanya mengubah data produk
-        $result = mysqli_query($koneksi, "UPDATE tb_produk SET judul_artikel='$judul_artikel', content_artikel='$content_artikel', id_kategori='$kategori', user_id='$user_id', created_time='$created_time' WHERE id='$artikel_id'");
+        $result = mysqli_query($koneksi, "UPDATE tb_about SET isi1='$isi1', isi2='$isi2' WHERE id='$id'");
 
         if ($result) {
-            echo "<script>alert('Artikel berhasil diubah!');</script>";
-            echo "<script>window.location.href = '../../admin/dashboard.php?page=artikel';</script>";
+            echo "<script>alert('About berhasil diubah!');</script>";
+            echo "<script>window.location.href = '../../admin/about/index.php?id=1&page=about';</script>";
             exit;
         } else {
-            echo "<script>alert('Gagal mengubah Artikel!');</script>";
+            echo "<script>alert('Gagal mengubah profil!');</script>";
             exit;
         }
     }
@@ -116,53 +110,39 @@ if (isset($_POST['update'])) {
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Artikel</h3>
+                                    <h3 class="card-title">Data About</h3>
                                     <div class="card-tools">
-                                        <a href="<?= $base_url_admin ?>/dashboard.php?page=artikel"
-                                            class="btn btn-info">Kembali</a>
+                                        <a href="about/index.php?id=1&page=about" class="btn btn-info">Kembali</a>
                                     </div>
                                 </div>
 
                                 <form method="post" enctype="multipart/form-data">
                                     <div class="card-body">
                                         <?php
-                                        $artikel_id = $_GET['id'];
-                                        $artikel = mysqli_query($koneksi, "SELECT * FROM tb_artikel WHERE id='$artikel_id'");
-                                        $data = mysqli_fetch_array($artikel);
+                                        include '../../config.php';
+                                        $id = $_GET['id'];
+                                        $about = mysqli_query($koneksi, "SELECT * FROM tb_about WHERE id='$id'");
+                                        $data = mysqli_fetch_array($about);
                                         ?>
 
-                                        <input type="hidden" name="id_artikel" value="<?= $data['id'] ?>">
+                                        <input type="hidden" name="id" value="<?= $data['id'] ?>">
 
-                                        <div class="form-group" enctype="multipart/form-data">
-                                            <label for="judul_artikel">Judul Artikel</label>
-                                            <input type="text" class="form-control" name="judul_artikel" required
-                                                autofocus>
+                                        <div class="form-group">
+                                            <label for="isi1">Isi Pertama</label>
+                                            <textarea type="text" class="form-control" name="isi1"
+                                                value="<?= $data['isi1'] ?>"></textarea>
                                         </div>
 
-                                        <div class="form-group" enctype="multipart/form-data">
-                                            <label for="content_artikel">Content</label>
-                                            <textarea type="text" class="form-control" name="content_artikel"
-                                                required></textarea>
+                                        <div class="form-group">
+                                            <label for="isi2">Isi Kedua</label>
+                                            <textarea type="text" class="form-control" name="isi2"
+                                                value="<?= $data['isi2'] ?>"></textarea>
                                         </div>
 
                                         <div class="form-group" enctype="multipart/form-data">
                                             <label for="image">Gambar</label>
                                             <input type="file" class="form-control" name="image">
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="kategori">Kategori</label>
-                                            <select class="form-control" name="kategori" required>
-                                                <option value="">Pilih Kategori</option>
-                                                <?php
-                                                $query = mysqli_query($koneksi, "SELECT * FROM tb_kategori_artikel ORDER BY id DESC");
-                                                while ($data = mysqli_fetch_array($query)) {
-                                                    echo "<option value='" . $data['id'] . "'>" . $data['kategori_artikel'] . "</option>";
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-
                                     </div>
 
                                     <div class="card-footer">
