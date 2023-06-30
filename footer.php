@@ -5,10 +5,9 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <a href="#header" class="scrollto footer-logo"><img src="assets/img/hero-logo.png" alt="" /></a>
-                    <h3>Knight</h3>
+                    <h3>PT.YAMAAF</h3>
                     <p>
-                        Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni
-                        eligendi fuga maxime saepe commodi placeat.
+                        Ciptakan nilai bersama, untuk meningkatkan kesejahteraan
                     </p>
                 </div>
             </div>
@@ -25,7 +24,7 @@
 
     <div class="container footer-bottom clearfix">
         <div class="copyright">
-            &copy; Copyright <strong><span>Knight</span></strong>. All Rights Reserved
+            &copy; Copyright <strong><span>KELOMPOK 2 | TI-4A</span></strong>. All Rights Reserved
         </div>
     </div>
 </footer>

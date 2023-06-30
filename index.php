@@ -60,9 +60,8 @@
             <a class="nav-link scrollto" href="#portfolio">Portfolio</a>
           </li>
           <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Artikel</a></li>
+          <li><a class="nav-link scrollto" href="artikel">Artikel</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
