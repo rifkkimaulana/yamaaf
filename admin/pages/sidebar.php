@@ -64,7 +64,15 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                         </p>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a href="<?= $base_url ?>admin/footer/index.php?id=1&page=footer"
+                        class="nav-link <?php echo ($page == 'footer') ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-tag"></i>
+                        <p>
+                            Footer
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="<?= $base_url ?>admin/logout.php" class="nav-link"
                         onclick="return confirm('Apakah Anda yakin ingin keluar?')">

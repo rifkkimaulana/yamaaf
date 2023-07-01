@@ -20,6 +20,9 @@
                 case 'about':
                     include "about/content-header.php";
                     break;
+                case 'footer':
+                    include "footer/content-header.php";
+                    break;
                 default:
                     echo "<center><h3>Maaf. Halaman tidak ditemukan!</h3></center>";
                     break;
