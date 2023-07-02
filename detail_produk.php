@@ -1,3 +1,21 @@
+<?php
+include 'config.php';
+
+// Mendapatkan ID dari GET request
+$id = $_GET['id'];
+
+// Mengambil data produk berdasarkan ID
+$query = mysqli_query($koneksi, "SELECT * FROM tb_produk WHERE id = $id");
+$data = mysqli_fetch_assoc($query);
+
+// Mendapatkan nama kategori berdasarkan id_kategori
+$id_kategori = $data['id_kategori'];
+$query_kategori = mysqli_query($koneksi, "SELECT kategori FROM tb_kategori WHERE id = $id_kategori");
+$kategori = mysqli_fetch_assoc($query_kategori);
+
+// Menutup koneksi database
+mysqli_close($koneksi);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +23,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Portfolio Details - Knight Bootstrap Template</title>
+  <title>Detail Produk</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -26,16 +44,9 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
+
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Knight
-  * Updated: May 30 2023 with Bootstrap v5.3.0
-  * Template URL: https://bootstrapmade.com/knight-free-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -50,22 +61,23 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
+          <li><a class="nav-link scrollto active" href="index.php#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
+          <li><a class="nav-link scrollto" href="index.php#services">Services</a></li>
           <li>
-            <a class="nav-link scrollto" href="#portfolio">Portfolio</a>
+            <a class="nav-link scrollto" href="index.php#portfolio">Portfolio</a>
           </li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Artikel</a></li>
+          <li><a class="nav-link scrollto" href="index.php#team">Team</a></li>
+          <li><a class="nav-link scrollto" href="index.php#pricing">Pricing</a></li>
+          <li><a class="nav-link scrollto" href="index.php#contact">Contact</a></li>
+          <li><a class="nav-link scrollto" href="artikel/index.php">Artikel</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
+
 
   <main id="main" data-aos="fade-up">
 
@@ -74,10 +86,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Portfoio Details</h2>
+          <h2>Produk Details</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li>Portfoio Details</li>
+            <li>Produk Details</li>
           </ol>
         </div>
 
@@ -95,16 +107,9 @@
               <div class="swiper-wrapper align-items-center">
 
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-1.jpg" alt="">
+                  <img src="admin/produk/image/<?php echo $data['image']; ?>" alt="<?php echo $data['nama_produk']; ?>">
                 </div>
 
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-2.jpg" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-3.jpg" alt="">
-                </div>
 
               </div>
               <div class="swiper-pagination"></div>
@@ -113,21 +118,29 @@
 
           <div class="col-lg-4">
             <div class="portfolio-info">
-              <h3>Project information</h3>
+              <h3>Produk information</h3>
               <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                <li><strong>Nama Produk</strong>:
+                  <?php echo $data['nama_produk']; ?>
+                </li>
+                <li><strong>Kategori</strong>:
+                  <?php echo $kategori['kategori']; ?>
+                </li>
+
+                <li><strong>Harga</strong>:
+                  <?php echo number_format($data['harga'], 0, ',', '.'); ?> IDR
+                </li>
+                <li><strong>Deskripsi Produk</strong>:
+                  <?php echo $data['deskripsi']; ?>
+                </li>
               </ul>
             </div>
             <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
+              <h2>
+                <?php echo $data['nama_produk']; ?>
+              </h2>
               <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia.
-                Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia
-                accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt
-                eius.
+                <?php echo $data['deskripsi']; ?>
               </p>
             </div>
           </div>
@@ -138,6 +151,8 @@
     </section><!-- End Portfolio Details Section -->
 
   </main><!-- End #main -->
+
+
   <?php include 'footer.php'; ?>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>

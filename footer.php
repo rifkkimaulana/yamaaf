@@ -5,6 +5,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <?php
+                    include 'config.php';
                     $query = mysqli_query($koneksi, "SELECT * FROM tb_footer WHERE id='1' ");
                     $data = mysqli_fetch_assoc($query);
                     ?>
