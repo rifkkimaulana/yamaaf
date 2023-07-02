@@ -23,9 +23,13 @@
                 case 'pengaturan':
                     include "pengaturan/content-header.php";
                     break;
+                case 'gallery':
+                    include "gallery/content-header.php";
+                    break;
                 default:
                     echo "<center><h3>Maaf. Halaman tidak ditemukan!</h3></center>";
                     break;
+
             }
         } else {
             include "dashboard/content-header.php";

@@ -5,12 +5,19 @@ error_reporting(E_ALL);
 include("../../config.php");
 include('session.php');
 
+// update tb_footer
 if (isset($_POST['ubah_pengaturan'])) {
     $id = $_POST['id'];
     $nama_perusahaan = $_POST['nama_perusahaan'];
     $deskripsi = $_POST['post_deskripsi'];
+    $alamat1 = $_POST['alamat1'];
+    $alamat2 = $_POST['alamat2'];
+    $gmail = $_POST['gmail'];
+    $nohp = $_POST['nohp'];
     $result = mysqli_query($koneksi, "UPDATE tb_footer SET nama_perusahaan='$nama_perusahaan', deskripsi='$deskripsi' WHERE id=$id");
+    $result = mysqli_query($koneksi, "UPDATE tb_contact SET alamat1='$alamat1', alamat2='$alamat2', gmail='$gmail', nohp='$nohp', deskripsi='$deskripsi' WHERE id=$id");
 
+    //MEMBUAT KONDISI PEMBERITAHUAN PESAN
     if ($result) {
         $pesan = "Data berhasil disimpan.";
         $jenis_pesan = "success";
@@ -35,6 +42,8 @@ if (isset($_POST['ubah_sosmed'])) {
     $link_lk = $_POST['link_lk'];
     $result = mysqli_query($koneksi, "UPDATE tb_footer SET link_ig='$link_ig', link_fb='$link_fb', link_twitter='$link_tw', link_lk='$link_lk' WHERE id=$id");
 
+
+    //MEMBUAT KONDISI PEMBERITAHUAN PESAN
     if ($result) {
         $pesan = "Data berhasil disimpan.";
         $jenis_pesan = "success";
@@ -96,11 +105,13 @@ if (isset($_POST['ubah_sosmed'])) {
                         $id = '1';
                         $query = mysqli_query($koneksi, "SELECT * FROM tb_footer WHERE id='$id'");
                         $data = mysqli_fetch_array($query);
+                        $query2 = mysqli_query($koneksi, "SELECT * FROM tb_contact WHERE id='$id'");
+                        $data2 = mysqli_fetch_array($query2);
                         ?>
                         <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Pengaturan Footer</h3>
+                                    <h3 class="card-title">Pengaturan</h3>
                                 </div>
                                 <div class="card-header">
                                     <form method="post" enctype="multipart/form-data">
@@ -117,6 +128,28 @@ if (isset($_POST['ubah_sosmed'])) {
                                                 <label for="isi1">Deskripsi Perusahaan</label>
                                                 <input class="form-control" name="post_deskripsi"
                                                     value="<?= $data['deskripsi'] ?>">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="isi1">Alamat 1</label>
+                                                <input class="form-control" name="alamat2"
+                                                    value="<?= $data2['alamat1'] ?>">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="isi1">Alamat 2</label>
+                                                <input class="form-control" name="alamat2"
+                                                    value="<?= $data2['alamat2'] ?>">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="isi1">Alamat Email</label>
+                                                <input class="form-control" name="gmail" value="<?= $data2['gmail'] ?>">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="isi1">No Telpon</label>
+                                                <input class="form-control" name="nohp" value="<?= $data2['nohp'] ?>">
                                                 </input>
                                             </div>
 

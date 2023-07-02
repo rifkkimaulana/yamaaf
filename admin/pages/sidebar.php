@@ -56,6 +56,15 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= $base_url ?>admin/dashboard.php?page=gallery"
+                        class="nav-link <?php echo ($page == 'gallery') ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-pen"></i>
+                        <p>
+                            Gallery
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= $base_url ?>admin/about/index.php?id=1&page=about"
                         class="nav-link <?php echo ($page == 'about') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-tag"></i>
@@ -65,8 +74,8 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= $base_url ?>admin/footer/index.php?id=1&page=pengaturan"
-                        class="nav-link <?php echo ($page == 'footer') ? 'active' : ''; ?>">
+                    <a href="<?= $base_url ?>admin/pengaturan/index.php?id=1&page=pengaturan"
+                        class="nav-link <?php echo ($page == 'pengaturan') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-tag"></i>
                         <p>
                             Pengaturan
