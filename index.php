@@ -6,7 +6,7 @@ $contac = mysqli_query($koneksi, "SELECT * FROM tb_contact WHERE id='1' ");
 $data1 = mysqli_fetch_assoc($contac);
 $faq = mysqli_query($koneksi, "SELECT * FROM tb_faq WHERE id='1' ");
 $data2 = mysqli_fetch_assoc($faq);
-$gallery = mysqli_query($koneksi, "SELECT * FROM tb_galley WHERE id='1' ");
+$gallery = mysqli_query($koneksi, "SELECT * FROM tb_gallery WHERE id='1' ");
 $data3 = mysqli_fetch_assoc($faq);
 ?>
 <!DOCTYPE html>
