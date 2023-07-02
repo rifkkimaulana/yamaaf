@@ -31,7 +31,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                 <li class="nav-item">
                     <a href="<?= $base_url ?>admin/dashboard.php?page=users"
                         class="nav-link <?php echo ($page == 'users') ? 'active' : ''; ?>">
-                        <i class="nav-icon fa fa-user"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
                             Users
                         </p>
@@ -40,7 +40,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                 <li class="nav-item">
                     <a href="<?= $base_url ?>admin/dashboard.php?page=produk"
                         class="nav-link <?php echo ($page == 'produk') ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-pen"></i>
+                        <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
                             Produk
                         </p>
@@ -49,7 +49,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                 <li class="nav-item">
                     <a href="<?= $base_url ?>admin/dashboard.php?page=artikel"
                         class="nav-link <?php echo ($page == 'artikel') ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-pen"></i>
+                        <i class="nav-icon fas fa-newspaper"></i>
                         <p>
                             Artikel
                         </p>
@@ -59,7 +59,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                 <li class="nav-item">
                     <a href="<?= $base_url ?>admin/dashboard.php?page=kategori"
                         class="nav-link <?php echo ($page == 'kategori') ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-tag"></i>
+                        <i class="nav-icon fas fa-tags"></i>
                         <p>
                             Kategori
                         </p>
@@ -68,7 +68,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                 <li class="nav-item">
                     <a href="<?= $base_url ?>admin/dashboard.php?page=team"
                         class="nav-link <?php echo ($page == 'team') ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-tag"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
                             Team
                         </p>
@@ -77,7 +77,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                 <li class="nav-item">
                     <a href="<?= $base_url ?>admin/dashboard.php?page=faq"
                         class="nav-link <?php echo ($page == 'faq') ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-pen"></i>
+                        <i class="nav-icon fas fa-question-circle"></i>
                         <p>
                             FAQ
                         </p>
@@ -86,7 +86,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                 <li class="nav-item">
                     <a href="<?= $base_url ?>admin/about/index.php?id=1&page=about"
                         class="nav-link <?php echo ($page == 'about') ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-tag"></i>
+                        <i class="nav-icon fas fa-info-circle"></i>
                         <p>
                             About
                         </p>
@@ -95,7 +95,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                 <li class="nav-item">
                     <a href="<?= $base_url ?>admin/pengaturan/index.php?id=1&page=pengaturan"
                         class="nav-link <?php echo ($page == 'pengaturan') ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-tag"></i>
+                        <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Pengaturan
                         </p>

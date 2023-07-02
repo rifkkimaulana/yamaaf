@@ -9,11 +9,11 @@ include_once("../config.php");
 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Data Artikel</h3>
+                        <h3 class="card-title">Data Team</h3>
                         <div class="card-tools">
                             <!-- This will cause the card to maximize when clicked -->
-                            <a href='artikel/tambah.php?page=artikel' class="btn btn-info"><i
-                                    class="fas fa-plus"></i>Tambah Artikel</a>
+                            <a href='team/tambah.php?page=team' class="btn btn-info"><i class="fas fa-plus"></i>Tambah
+                                Team</a>
                         </div>
                         <!-- /.card-tools -->
                     </div>
@@ -22,9 +22,9 @@ include_once("../config.php");
                             <thead>
                                 <tr>
                                     <th style="width: 10px">No</th>
-                                    <th>Judul Artikel</th>
-                                    <th>Kategori Artikel</th>
-                                    <th>Content</th>
+                                    <th>Nama Lengkap</th>
+                                    <th>Jabatan</th>
+                                    <th>Deskripsi</th>
                                     <th class="text-center">Gambar</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -32,11 +32,7 @@ include_once("../config.php");
                             <?php
                             include_once("../config.php");
 
-                            $query = "SELECT tb_artikel.*, tb_kategori.kategori
-                            FROM tb_artikel
-                            INNER JOIN tb_kategori ON tb_artikel.id_kategori = tb_kategori.id
-                            ORDER BY tb_artikel.id DESC";
-
+                            $query = "SELECT * FROM tb_team";
                             $result = mysqli_query($koneksi, $query);
                             if (mysqli_num_rows($result) > 0) {
                                 $no = 1;
@@ -49,20 +45,21 @@ include_once("../config.php");
                                                 <?= $no++ ?>
                                             </td>
                                             <td>
-                                                <?= $data['judul_artikel'] ?>
+                                                <?= $data['nama'] ?>
                                             </td>
                                             <td>
-                                                <?= $data['kategori'] ?>
+                                                <?= $data['jabatan'] ?>
                                             </td>
                                             <td>
-                                                <?= $data['content_artikel'] ?>
+                                                <?= $data['deskripsi'] ?>
                                             </td>
-                                            <td><img src="../admin/artikel/image/<?= $data['cover'] ?>" width="100"></td>
+                                            <td class="text-center"><img src="../admin/team/image/<?= $data['cover'] ?>"
+                                                    width="100"></td>
                                             <td class="text-center">
                                                 <a class="btn btn-success"
-                                                    href='artikel/ubah.php?id=<?= $data['id'] ?>&page=artikel'>Edit</a>
+                                                    href='team/ubah.php?id=<?= $data['id'] ?>&page=team'>Edit</a>
                                                 <a class="btn btn-danger" onclick='return confirmDelete()'
-                                                    href='artikel/hapus.php?id=<?= $data['id'] ?>&page=artikel'>Hapus</a>
+                                                    href='team/hapus.php?id=<?= $data['id'] ?>&page=team'>Hapus</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -71,7 +68,7 @@ include_once("../config.php");
                             } else {
                                 ?>
                             <tr>
-                                <td colspan="8">Tidak ada data artikel.</td>
+                                <td colspan="8">Tidak ada data team.</td>
                             </tr>
                             <?php
                             }

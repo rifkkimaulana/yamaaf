@@ -4,12 +4,12 @@ include('session.php');
 
 $id = @$_GET['id'];
 
-$sql = "SELECT cover FROM tb_artikel WHERE id='$id'";
+$sql = "SELECT cover FROM tb_team WHERE id='$id'";
 $result = mysqli_query($koneksi, $sql);
 $data = mysqli_fetch_assoc($result);
 $imageName = $data['cover'];
 
-$result = mysqli_query($koneksi, "DELETE FROM tb_artikel WHERE id=$id");
+$result = mysqli_query($koneksi, "DELETE FROM tb_team WHERE id=$id");
 
 if ($result && !empty($imageName)) {
     $uploadDir = 'image/';
@@ -19,4 +19,4 @@ if ($result && !empty($imageName)) {
     }
 }
 
-header("Location:../dashboard.php?page=artikel");
+header("Location:../dashboard.php?page=team");

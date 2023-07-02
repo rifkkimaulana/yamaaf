@@ -7,18 +7,15 @@ include("../../config.php");
 include('session.php');
 
 if (isset($_POST['update'])) {
-    $artikel_id = isset($_GET['id']) ? $_GET['id'] : '';
+    $team_id = isset($_GET['id']) ? $_GET['id'] : '';
 
-    $judul_artikel = $_POST['judul_artikel'];
-    $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($_POST["judul_artikel"])));
-    $created_time = date("Y-m-d H:i:s");
-    $user_id = $_SESSION['id'];
-    $kategori = $_POST['kategori'];
-    $content_artikel = $_POST['content_artikel'];
+    $nama = $_POST['nama'];
+    $jabatan = $_POST['jabatan'];
+    $deskripsi = $_POST['deskripsi'];
 
     // Memeriksa apakah ada file gambar yang diunggah
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $file = $_FILES['image'];
+    if (isset($_FILES['cover']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK) {
+        $file = $_FILES['cover'];
 
         // Memeriksa tipe file
         $allowedTypes = array('image/jpeg', 'image/png');
@@ -46,24 +43,25 @@ if (isset($_POST['update'])) {
         if (move_uploaded_file($fileTmpName, $uploadDir . $upload)) {
             // Melakukan query UPDATE setelah file berhasil diunggah
             // Menghapus gambar lama jika ada
-            $query_artikel = mysqli_query($koneksi, "SELECT * FROM tb_artikel WHERE id='$artikel_id'");
-            $data = mysqli_fetch_array($query_artikel);
-            $row_gambar = $data['cover'];
+            $query_team = mysqli_query($koneksi, "SELECT * FROM tb_team WHERE id='$team_id'");
+            $data = mysqli_fetch_array($query_team);
+            $row_cover = $data['cover'];
 
-            if (!empty($fileName) && $fileName !== $row_gambar) {
-                $oldImagePath = $uploadDir . $row_gambar;
+            if (!empty($fileName) && $fileName !== $row_cover) {
+                $oldImagePath = $uploadDir . $row_cover;
                 if (file_exists($oldImagePath)) {
                     unlink($oldImagePath);
                 }
             }
 
-            $result = mysqli_query($koneksi, "UPDATE tb_artikel SET judul_artikel='$judul_artikel', content_artikel='$content_artikel', id_kategori='$kategori', user_id='$user_id', created_time='$created_time', cover='$uploaddb' WHERE id='$artikel_id'");
+            $result = mysqli_query($koneksi, "UPDATE tb_team SET nama='$nama', jabatan='$jabatan', deskripsi='$deskripsi', cover='$uploaddb' WHERE id='$team_id'");
 
             if (mysqli_affected_rows($koneksi) > 0) {
-                echo "<script>window.location.href = '../../admin/dashboard.php?page=artikel';</script>";
+                echo "<script>alert('Data team berhasil diubah!');</script>";
+                echo "<script>window.location.href = '../../admin/dashboard.php?page=team';</script>";
                 exit;
             } else {
-                echo "<script>alert('Gagal mengubah artikel!');</script>";
+                echo "<script>alert('Gagal mengubah data team!');</script>";
                 exit;
             }
         } else {
@@ -71,15 +69,15 @@ if (isset($_POST['update'])) {
             exit;
         }
     } else {
-        // Tidak ada file gambar yang diunggah, hanya mengubah data artikel
-        $result = mysqli_query($koneksi, "UPDATE tb_artikel SET judul_artikel='$judul_artikel', content_artikel='$content_artikel', id_kategori='$kategori', user_id='$user_id', created_time='$created_time' WHERE id='$artikel_id'");
+        // Tidak ada file gambar yang diunggah, hanya mengubah data team
+        $result = mysqli_query($koneksi, "UPDATE tb_team SET nama='$nama', jabatan='$jabatan', deskripsi='$deskripsi' WHERE id='$team_id'");
 
         if (mysqli_affected_rows($koneksi) > 0) {
-            echo "<script>alert('Artikel berhasil diubah!');</script>";
-            echo "<script>window.location.href = '../../admin/dashboard.php?page=artikel';</script>";
+            echo "<script>alert('Data team berhasil diubah!');</script>";
+            echo "<script>window.location.href = '../../admin/dashboard.php?page=team';</script>";
             exit;
         } else {
-            echo "<script>alert('Gagal mengubah Artikel!');</script>";
+            echo "<script>alert('Gagal mengubah data team!');</script>";
             exit;
         }
     }
@@ -116,9 +114,9 @@ if (isset($_POST['update'])) {
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Artikel</h3>
+                                    <h3 class="card-title">Ubah Data Team</h3>
                                     <div class="card-tools">
-                                        <a href="<?= $base_url_admin ?>/dashboard.php?page=artikel"
+                                        <a href="<?= $base_url_admin ?>/dashboard.php?page=team"
                                             class="btn btn-info">Kembali</a>
                                     </div>
                                 </div>
@@ -126,42 +124,34 @@ if (isset($_POST['update'])) {
                                 <form method="post" enctype="multipart/form-data">
                                     <div class="card-body">
                                         <?php
-                                        $artikel_id = isset($_GET['id']) ? $_GET['id'] : '';
-                                        $artikel = mysqli_query($koneksi, "SELECT * FROM tb_artikel WHERE id='$artikel_id'");
-                                        $data = mysqli_fetch_array($artikel);
+                                        $team_id = isset($_GET['id']) ? $_GET['id'] : '';
+                                        $team = mysqli_query($koneksi, "SELECT * FROM tb_team WHERE id='$team_id'");
+                                        $data = mysqli_fetch_array($team);
                                         ?>
 
-                                        <input type="hidden" name="id_artikel" value="<?= $data['id']; ?>">
+                                        <input type="hidden" name="id_team" value="<?= $data['id']; ?>">
 
                                         <div class="form-group">
-                                            <label for="judul_artikel">Judul Artikel</label>
-                                            <input type="text" class="form-control" name="judul_artikel"
-                                                value="<?= $data['judul_artikel']; ?>" required>
+                                            <label for="nama">Nama Lengkap</label>
+                                            <input type="text" class="form-control" name="nama"
+                                                value="<?= $data['nama']; ?>" required>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="content_artikel">Content</label>
-                                            <textarea class="form-control" name="content_artikel"
-                                                required><?= $data['content_artikel'] ?? ''; ?></textarea>
+                                            <label for="jabatan">Jabatan</label>
+                                            <input type="text" class="form-control" name="jabatan"
+                                                value="<?= $data['jabatan']; ?>" required>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="image">Gambar</label>
-                                            <input type="file" class="form-control" name="image">
+                                            <label for="deskripsi">Deskripsi</label>
+                                            <textarea class="form-control" name="deskripsi"
+                                                required><?= $data['deskripsi']; ?></textarea>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="kategori">Kategori</label>
-                                            <select class="form-control" name="kategori" required>
-                                                <option value="">Pilih Kategori</option>
-                                                <?php
-                                                $query = mysqli_query($koneksi, "SELECT * FROM tb_kategori_artikel ORDER BY id DESC");
-                                                while ($data = mysqli_fetch_array($query)) {
-                                                    $selected = ($data['id'] == $kategori) ? "selected" : "";
-                                                    echo "<option value='" . $data['id'] . "' " . $selected . ">" . $data['kategori_artikel'] . "</option>";
-                                                }
-                                                ?>
-                                            </select>
+                                            <label for="cover">Gambar</label>
+                                            <input type="file" class="form-control" name="cover">
                                         </div>
                                     </div>
 

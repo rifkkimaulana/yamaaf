@@ -21,7 +21,7 @@
                             <p>
                                 <?php echo $deskripsi; ?>
                             </p>
-                            <img src="path/to/your/images/<?php echo $cover; ?>" class="testimonial-img" alt="" />
+                            <img src="admin/team/image/<?php echo $cover; ?>" class="testimonial-img" alt="" />
                             <h3>
                                 <?php echo $nama; ?>
                             </h3>

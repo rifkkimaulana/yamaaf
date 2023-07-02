@@ -7,12 +7,9 @@ include("../../config.php");
 include('session.php');
 
 if (isset($_POST['tambah'])) {
-    $judul_artikel = @$_POST['judul_artikel'];
-    $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($_POST["judul_artikel"])));
-    $created_time = date("Y-m-d H:i:s");
-    $user_id = $_SESSION['id'];
-    $kategori = @$_POST['kategori'];
-    $content_artikel = @$_POST['content_artikel'];
+    $nama = $_POST['nama'];
+    $jabatan = $_POST['jabatan'];
+    $deskripsi = $_POST['deskripsi'];
 
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] === UPLOAD_ERR_OK) {
         $file = $_FILES['gambar'];
@@ -28,7 +25,7 @@ if (isset($_POST['tambah'])) {
         $fileName = $file['name'];
         $fileTmpName = $file['tmp_name'];
 
-        $uploadDir = 'image/';
+        $uploadDir = '../../admin/team/image/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
@@ -39,14 +36,14 @@ if (isset($_POST['tambah'])) {
 
         if (move_uploaded_file($fileTmpName, $upload)) {
 
-            $result = mysqli_query($koneksi, "INSERT INTO tb_artikel (judul_artikel, created_time, user_id, id_kategori, content_artikel, cover)
-                VALUES ('$judul_artikel', '$created_time', '$user_id', '$kategori', '$content_artikel', '$uploaddb')");
+            $result = mysqli_query($koneksi, "INSERT INTO tb_team (nama, jabatan, deskripsi, cover)
+                VALUES ('$nama', '$jabatan', '$deskripsi', '$uploaddb')");
 
             if ($result) {
-                echo "<script>window.location.href = '../../admin/dashboard.php?page=artikel';</script>";
+                echo "<script>window.location.href = '../../admin/dashboard.php?page=team';</script>";
                 exit;
             } else {
-                echo "<script>alert('Gagal menyimpan artikel!');</script>";
+                echo "<script>alert('Gagal menyimpan data team!');</script>";
                 echo "Error: " . mysqli_error($koneksi);
                 exit;
             }
@@ -94,42 +91,33 @@ if (isset($_POST['tambah'])) {
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Artikel</h3>
+                                    <h3 class="card-title">Data Team</h3>
                                     <div class="card-tools">
-                                        <a href="../dashboard.php?page=artikel" class="btn btn-info">Kembali</a>
+                                        <a href="../dashboard.php?page=team" class="btn btn-info">Kembali</a>
                                     </div>
                                 </div>
 
                                 <form method="post" enctype="multipart/form-data">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="judul_artikel">Judul Artikel</label>
-                                            <input type="text" class="form-control" name="judul_artikel" required
-                                                autofocus>
+                                            <label for="nama">Nama Lengkap</label>
+                                            <input type="text" class="form-control" name="nama" required autofocus>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="content_artikel">Content</label>
-                                            <textarea type="text" class="form-control" name="content_artikel"
+                                            <label for="jabatan">Jabatan</label>
+                                            <input type="text" class="form-control" name="jabatan" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="deskripsi">Deskripsi</label>
+                                            <textarea type="text" class="form-control" name="deskripsi"
                                                 required></textarea>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="gambar">Gambar</label>
                                             <input type="file" class="form-control" name="gambar">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="kategori">Kategori</label>
-                                            <select class="form-control" name="kategori" required>
-                                                <option value="">Pilih Kategori</option>
-                                                <?php
-                                                $query = mysqli_query($koneksi, "SELECT * FROM tb_kategori_artikel ORDER BY id DESC");
-                                                while ($data = mysqli_fetch_array($query)) {
-                                                    echo "<option value='" . $data['id'] . "'>" . $data['kategori_artikel'] . "</option>";
-                                                }
-                                                ?>
-                                            </select>
                                         </div>
 
                                     </div>

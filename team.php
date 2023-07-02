@@ -3,9 +3,7 @@
     <div class="container">
         <div class="section-title" data-aos="fade-up">
             <h2>Team</h2>
-            <p>
-                Magnam dolores commodi suscipit eius consequatur ex aliquid fuga
-                eum quidem
+            <p>Menyusun strategi pemasaran dan mempromosikan produk perusahaan.
             </p>
         </div>
 
@@ -22,7 +20,7 @@
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                     <div class="member" data-aos="zoom-in">
                         <div class="member-img">
-                            <img src="assets/img/team/<?php echo $gambar; ?>" class="img-fluid" alt="" />
+                            <img src="admin/team/image/<?php echo $gambar; ?>" class="img-fluid" alt="" />
                             <div class="social">
                                 <a href=""><i class="bi bi-twitter"></i></a>
                                 <a href=""><i class="bi bi-facebook"></i></a>
