@@ -97,8 +97,6 @@ $koneksi->close();
   <main id="main">
     <?php include 'about.php'; ?>
     <?php include 'services.php'; ?>
-    <?php //include 'feature.php'; ?>
-    <?php include 'why-us.php'; ?>
     <?php include 'gallery.php'; ?>
     <?php include 'testimoni.php'; ?>
     <?php include 'team.php'; ?>
