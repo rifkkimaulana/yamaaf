@@ -14,7 +14,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="../admin/logout.php" onclick="return confirm('Apakah Anda yakin ingin keluar?')">
+            <a class="nav-link" href="../logout.php" onclick="return confirm('Apakah Anda yakin ingin keluar?')">
                 <i class="fa fa-sign-out-alt"></i> Logout
             </a>
         </li>

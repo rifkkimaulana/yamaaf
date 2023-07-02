@@ -76,16 +76,22 @@ $koneksi->close();
       </div>
 
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li>
-            <a class="nav-link scrollto" href="#portfolio">Portfolio</a>
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link scrollto active" href="index.php#hero">Home</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="index.php#about">About</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="index.php#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="index.php#portfolio">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="index.php#team">Team</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="index.php#pricing">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="index.php#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="artikel/index.php">Artikel</a></li>
+          <li class="nav-item"><a class="nav-link scrollto"></a></li>
+          <li class="nav-item">
+            <form action="search.php" method="GET" class="d-flex">
+              <input class="form-control me-2" type="search" name="keyword" placeholder="Search..." aria-label="Search">
+              <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+            </form>
           </li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="artikel">Artikel</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
