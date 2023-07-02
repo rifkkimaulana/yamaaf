@@ -38,6 +38,15 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= $base_url ?>admin/dashboard.php?page=produk"
+                        class="nav-link <?php echo ($page == 'produk') ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-pen"></i>
+                        <p>
+                            Produk
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= $base_url ?>admin/dashboard.php?page=artikel"
                         class="nav-link <?php echo ($page == 'artikel') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-pen"></i>
@@ -46,6 +55,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                         </p>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="<?= $base_url ?>admin/dashboard.php?page=kategori"
                         class="nav-link <?php echo ($page == 'kategori') ? 'active' : ''; ?>">

@@ -25,6 +25,9 @@
                 case 'gallery':
                     include "gallery/index.php";
                     break;
+                case 'produk':
+                    include "produk/index.php";
+                    break;
                 default:
                     echo "<center><h3>Maaf. Halaman tidak ditemukan!</h3></center>";
                     break;

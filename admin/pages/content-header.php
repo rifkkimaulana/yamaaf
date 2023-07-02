@@ -26,6 +26,9 @@
                 case 'gallery':
                     include "gallery/content-header.php";
                     break;
+                case 'produk':
+                    include "produk/content-header.php";
+                    break;
                 default:
                     echo "<center><h3>Maaf. Halaman tidak ditemukan!</h3></center>";
                     break;
