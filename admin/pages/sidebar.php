@@ -74,6 +74,15 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= $base_url ?>admin/contact/index.php?id=1&page=contact"
+                        class="nav-link <?php echo ($page == 'contact') ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-tag"></i>
+                        <p>
+                            Contact
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= $base_url ?>admin/logout.php" class="nav-link"
                         onclick="return confirm('Apakah Anda yakin ingin keluar?')">
                         <i class="nav-icon fas fa-sign-out-alt"></i>

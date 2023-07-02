@@ -2,7 +2,7 @@
 <section id="portfolio" class="portfolio">
     <div class="container">
         <div class="section-title" data-aos="fade-up">
-            <h2>Portfolio</h2>
+            <h2>GALLERY</h2>
             <p>
                 Magnam dolores commodi suscipit eius consequatur ex aliquid fuga
                 eum quidem
@@ -55,8 +55,14 @@
                 <div class="portfolio-wrap">
                     <img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt="" />
                     <div class="portfolio-info">
-                        <h4>App 2</h4>
-                        <p>App</p>
+                        <h4>
+                            <?php $motorkecil = $data['motor_kecil'];
+                            echo $motorkecil; ?>
+                        </h4>
+                        <p>
+                            <?php $motorkecil = $data['motor_kecil'];
+                            echo $motorkecil; ?>
+                        </p>
                         <div class="portfolio-links">
                             <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery"
                                 class="portfolio-lightbox" title="App 2"><i class="bx bx-plus"></i></a>

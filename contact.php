@@ -4,8 +4,8 @@
         <div class="section-title">
             <h2>Contact</h2>
             <p>
-                Magnam dolores commodi suscipit eius consequatur ex aliquid fuga
-                eum quidem
+                <?php $deskripsi1 = $data1['deskripsi'];
+                echo $deskripsi1; ?>
             </p>
         </div>
 
@@ -15,19 +15,30 @@
                     <div class="address">
                         <i class="bi bi-geo-alt"></i>
                         <h4>Location:</h4>
-                        <p>A108 Adam Street,<br />New York, NY 535022</p>
+                        <p>
+                            <?php $alamat1 = $data1['alamat1'];
+                            echo $alamat1; ?>,<br />
+                            <?php $alamat2 = $data1['alamat2'];
+                            echo $alamat2; ?>
+                        </p>
                     </div>
 
                     <div class="email">
                         <i class="bi bi-envelope"></i>
                         <h4>Email:</h4>
-                        <p>info@example.com</p>
+                        <p>
+                            <?php $gmail = $data1['gmail'];
+                            echo $gmail; ?>
+                        </p>
                     </div>
 
                     <div class="phone">
                         <i class="bi bi-phone"></i>
                         <h4>Call:</h4>
-                        <p>+1 5589 55488 55s</p>
+                        <p>
+                            <?php $notelepon = $data1['nohp'];
+                            echo $notelepon; ?>
+                        </p>
                     </div>
                 </div>
             </div>
