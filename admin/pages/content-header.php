@@ -14,8 +14,8 @@
                 case 'artikel':
                     include "artikel/content-header.php";
                     break;
-                case 'kategori_artikel':
-                    include "kategori_artikel/content-header.php";
+                case 'kategori':
+                    include "kategori/content-header.php";
                     break;
                 case 'about':
                     include "about/content-header.php";

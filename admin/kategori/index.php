@@ -8,9 +8,9 @@ include_once("../config.php");
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Data Kategori Artikel</h3>
+                        <h3 class="card-title">Data Kategori</h3>
                         <div class="card-tools">
-                            <a href='kategori_artikel/tambah.php?page=kategori_artikel' class="btn btn-info"><i
+                            <a href='kategori/tambah.php?page=kategori' class="btn btn-info"><i
                                     class="fas fa-plus"></i>Tambah kategori</a>
                         </div>
                     </div>
@@ -25,7 +25,7 @@ include_once("../config.php");
                             </thead>
                             <?php
                             $no = 1;
-                            $result = mysqli_query($koneksi, "SELECT * FROM tb_kategori_artikel ORDER BY id DESC");
+                            $result = mysqli_query($koneksi, "SELECT * FROM tb_kategori ORDER BY id DESC");
 
                             while ($data = mysqli_fetch_array($result)) {
                                 ?>
@@ -35,13 +35,13 @@ include_once("../config.php");
                                             <?= $no++ ?>
                                         </td>
                                         <td>
-                                            <?= $data['kategori_artikel'] ?>
+                                            <?= $data['kategori'] ?>
                                         </td>
                                         <td class="text-center">
                                             <a class="btn btn-success"
-                                                href='kategori_artikel/ubah.php?id=<?= $data['id'] ?>&page=kategori_artikel'>Edit</a>
+                                                href='kategori/ubah.php?id=<?= $data['id'] ?>&page=kategori'>Edit</a>
                                             <a class="btn btn-danger" onclick='return confirmDelete()'
-                                                href='kategori_artikel/hapus.php?id=<?= $data['id'] ?>&page=kategori_artikel'>Hapus</a>
+                                                href='kategori/hapus.php?id=<?= $data['id'] ?>&page=kategori'>Hapus</a>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -13,8 +13,8 @@
                 case 'artikel':
                     include "artikel/index.php";
                     break;
-                case 'kategori_artikel':
-                    include "kategori_artikel/index.php";
+                case 'kategori':
+                    include "kategori/index.php";
                     break;
                 case 'about':
                     include "about/index.php";

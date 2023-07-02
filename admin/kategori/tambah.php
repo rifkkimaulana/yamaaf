@@ -7,14 +7,14 @@ include("../../config.php");
 include('session.php');
 
 if (isset($_POST['submit'])) {
-    $nama_kategori = @$_POST['kategori_artikel'];
-    $sql = "SELECT * FROM tb_kategori_artikel WHERE kategori_artikel='$nama_kategori'";
+    $nama_kategori = @$_POST['kategori'];
+    $sql = "SELECT * FROM tb_kategori WHERE kategori='$nama_kategori'";
     $result = mysqli_query($koneksi, $sql);
     if ($result->num_rows > 0) {
         echo "<script>alert('Nama Kategori sudah ada. Silahkan coba lagi!')</script>";
     } else {
-        $result = mysqli_query($koneksi, "INSERT INTO tb_kategori_artikel(kategori_artikel) VALUES('$nama_kategori')");
-        echo "<script>window.location.href = '../../admin/dashboard.php?page=kategori_artikel';</script>";
+        $result = mysqli_query($koneksi, "INSERT INTO tb_kategori(kategori) VALUES('$nama_kategori')");
+        echo "<script>window.location.href = '../../admin/dashboard.php?page=kategori';</script>";
     }
 }
 ?>
@@ -48,19 +48,16 @@ if (isset($_POST['submit'])) {
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Kategori Artikel</h3>
+                                    <h3 class="card-title">Data Kategori</h3>
                                     <div class="card-tools">
-                                        <a href="../dashboard.php?page=kategori_artikel"
-                                            class="btn btn-info">Kembali</a>
+                                        <a href="../dashboard.php?page=kategori" class="btn btn-info">Kembali</a>
                                     </div>
                                 </div>
-                                <form action="../kategori_artikel/tambah.php?page=kategori_artikel" method="post"
-                                    name="form1">
+                                <form action="../kategori/tambah.php?page=kategori" method="post" name="form1">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="kategori_artikel">Nama Kategori</label>
-                                            <input type="text" class="form-control" name="kategori_artikel" required
-                                                autofocus>
+                                            <label for="kategori">Nama Kategori</label>
+                                            <input type="text" class="form-control" name="kategori" required autofocus>
                                         </div>
                                     </div>
                                     <div class="card-footer">

@@ -3,18 +3,18 @@ include_once("../../config.php");
 include('session.php');
 $id = @$_GET['id'];
 
-$result = mysqli_query($koneksi, "SELECT * FROM tb_kategori_artikel WHERE id=$id");
+$result = mysqli_query($koneksi, "SELECT * FROM tb_kategori WHERE id=$id");
 while ($data = mysqli_fetch_array($result)) {
-    $row_kategori = $data['kategori_artikel'];
+    $row_kategori = $data['kategori'];
 }
 ?>
 
 <?php
 if (isset($_POST['update'])) {
     $id = $_POST['id'];
-    $nama_kategori = $_POST['kategori_artikel'];
-    $result = mysqli_query($koneksi, "UPDATE tb_kategori_artikel SET kategori_artikel='$nama_kategori' WHERE id=$id");
-    header("Location:../dashboard.php?page=kategori_artikel");
+    $nama_kategori = $_POST['kategori'];
+    $result = mysqli_query($koneksi, "UPDATE tb_kategori SET kategori='$nama_kategori' WHERE id=$id");
+    header("Location:../dashboard.php?page=kategori");
 }
 ?>
 
@@ -54,7 +54,7 @@ if (isset($_POST['update'])) {
                                     <h3 class="card-title">Data kategori Artikel</h3>
 
                                     <div class="card-tools">
-                                        <a href="dashboard.php?page=kategori_artikel" class="btn btn-info">Kembali</a>
+                                        <a href="dashboard.php?page=kategori" class="btn btn-info">Kembali</a>
                                     </div>
 
                                 </div>
@@ -64,9 +64,9 @@ if (isset($_POST['update'])) {
                                     <form method="post">
                                         <input type="hidden" name="id" value="<?= $id ?>">
                                         <div class="form-group">
-                                            <label for="kategori_artikel">Kategori</label>
-                                            <input name="kategori_artikel" type="text" class="form-control"
-                                                value="<?= $row_kategori ?>" name="kategori_artikel" required <?php if ($row_kategori == 'admin') { ?> readonly <?php } ?>>
+                                            <label for="kategori">Kategori</label>
+                                            <input name="kategori" type="text" class="form-control"
+                                                value="<?= $row_kategori ?>" name="kategori" required>
                                         </div>
                                         <button class="btn btn-primary" type="submit" name="update">Ubah</button>
 

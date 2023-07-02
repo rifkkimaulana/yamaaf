@@ -32,16 +32,15 @@ include_once("../config.php");
                             <?php
                             include_once("../config.php");
 
-                            // Query untuk mendapatkan data produk dengan kategori yang sesuai
-                            $query = "SELECT tb_artikel.*, tb_kategori_artikel.kategori_artikel
+                            $query = "SELECT tb_artikel.*, tb_kategori.kategori
                             FROM tb_artikel
-                            INNER JOIN tb_kategori_artikel ON tb_artikel.id_kategori = tb_kategori_artikel.id
+                            INNER JOIN tb_kategori ON tb_artikel.id_kategori = tb_kategori.id
                             ORDER BY tb_artikel.id DESC";
 
                             $result = mysqli_query($koneksi, $query);
                             if (mysqli_num_rows($result) > 0) {
-                                $no = 1; // Nomor urut
-                            
+                                $no = 1;
+
                                 while ($data = mysqli_fetch_array($result)) {
                                     ?>
                                     <tbody>
@@ -53,7 +52,7 @@ include_once("../config.php");
                                                 <?= $data['judul_artikel'] ?>
                                             </td>
                                             <td>
-                                                <?= $data['kategori_artikel'] ?>
+                                                <?= $data['kategori'] ?>
                                             </td>
                                             <td>
                                                 <?= $data['content_artikel'] ?>
