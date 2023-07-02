@@ -5,78 +5,49 @@ error_reporting(E_ALL);
 include("../../config.php");
 include('session.php');
 
-$id = $_GET['id'];
-if (isset($_POST['update'])) {
-    $isi1 = $_POST['isi1'];
-    $isi2 = $_POST['isi2'];
+if (isset($_POST['ubah_pengaturan'])) {
+    $id = $_POST['id'];
+    $nama_perusahaan = $_POST['nama_perusahaan'];
+    $deskripsi = $_POST['post_deskripsi'];
+    $result = mysqli_query($koneksi, "UPDATE tb_footer SET nama_perusahaan='$nama_perusahaan', deskripsi='$deskripsi' WHERE id=$id");
 
-    // Memeriksa apakah ada file gambar yang diunggah
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $file = $_FILES['image'];
-
-        // Memeriksa tipe file
-        $allowedTypes = array('image/jpeg', 'image/png');
-        $fileType = $file['type'];
-        if (!in_array($fileType, $allowedTypes)) {
-            echo "Tipe file yang diunggah tidak didukung. Harap unggah file JPG atau PNG.";
-            exit;
-        }
-
-        // Mengambil informasi file yang diunggah
-        $fileName = $file['name'];
-        $fileTmpName = $file['tmp_name'];
-
-        // Menggunakan direktori tujuan penyimpanan file
-        $uploadDir = 'image/';
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0755, true);
-        }
-
-        // Memindahkan file ke direktori tujuan
-        $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-        $uniqueFileName = 'upload_' . date('YmdHis') . '_';
-        $upload = ($uniqueFileName . $fileName);
-        $uploaddb = ($uniqueFileName . $fileName);
-        if (move_uploaded_file($fileTmpName, $uploadDir . $upload)) {
-            // Melakukan query UPDATE setelah file berhasil diunggah
-            // Menghapus gambar lama jika ada
-            $query_footer = mysqli_query($koneksi, "SELECT * FROM tb_footer WHERE id='$id'");
-            $data = mysqli_fetch_array($query_footer);
-            $row_gambar = $data['image'];
-
-            if (!empty($fileName) && $fileName !== $row_gambar) {
-                $oldImagePath = $uploadDir . $row_gambar;
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
-            }
-
-            $result = mysqli_query($koneksi, "UPDATE tb_footer SET isi1='$isi1', isi2='$isi2','image='$uploaddb WHERE id='$id'");
-
-            if ($result) {
-                echo "<script>window.location.href = '../../admin/footer/index.php?id=1&page=footer';</script>";
-                exit;
-            } else {
-                echo "<script>alert('Gagal mengubah footer!');</script>";
-                exit;
-            }
-        } else {
-            echo "<script>alert('Gagal mengunggah file!');</script>";
-            exit;
-        }
+    if ($result) {
+        $pesan = "Data berhasil disimpan.";
+        $jenis_pesan = "success";
     } else {
-        // Tidak ada file gambar yang diunggah, hanya mengubah data produk
-        $result = mysqli_query($koneksi, "UPDATE tb_footer SET isi1='$isi1', isi2='$isi2' WHERE id='$id'");
-
-        if ($result) {
-            echo "<script>alert('footer berhasil diubah!');</script>";
-            echo "<script>window.location.href = '../../admin/footer/index.php?id=1&page=footer';</script>";
-            exit;
-        } else {
-            echo "<script>alert('Gagal mengubah profil!');</script>";
-            exit;
-        }
+        $pesan = "Gagal menyimpan data.";
+        $jenis_pesan = "danger";
     }
+
+    $_SESSION['pesan'] = $pesan;
+    $_SESSION['jenis_pesan'] = $jenis_pesan;
+
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+if (isset($_POST['ubah_sosmed'])) {
+    $id = $_POST['id'];
+    $link_ig = $_POST['link_ig'];
+    $link_fb = $_POST['link_fb'];
+    $link_tw = $_POST['link_tw'];
+    $link_lk = $_POST['link_lk'];
+    $result = mysqli_query($koneksi, "UPDATE tb_footer SET link_ig='$link_ig', link_fb='$link_fb', link_twitter='$link_tw', link_lk='$link_lk' WHERE id=$id");
+
+    if ($result) {
+        $pesan = "Data berhasil disimpan.";
+        $jenis_pesan = "success";
+    } else {
+        $pesan = "Gagal menyimpan data.";
+        $jenis_pesan = "danger";
+    }
+
+    $_SESSION['pesan'] = $pesan;
+    $_SESSION['jenis_pesan'] = $jenis_pesan;
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
 }
 ?>
 
@@ -103,53 +74,105 @@ if (isset($_POST['update'])) {
         <?php include('../pages/sidebar.php'); ?>
 
         <div class="content-wrapper">
+
             <?php include('content-header.php'); ?>
             <div class="content">
                 <div class="container-fluid">
+                    <?php
+                    if (isset($_SESSION['pesan']) && isset($_SESSION['jenis_pesan'])) {
+                        $pesan = $_SESSION['pesan'];
+                        $jenis_pesan = $_SESSION['jenis_pesan'];
+                    }
+                    ?>
+
+                    <?php if (isset($pesan) && isset($jenis_pesan)): ?>
+                        <div class="alert alert-<?= $jenis_pesan ?>">
+                            <?= $pesan ?>
+                        </div>
+                    <?php endif; ?>
                     <div class="row">
-                        <div class="col-lg-12">
+                        <?php
+                        include '../../config.php';
+                        $id = '1';
+                        $query = mysqli_query($koneksi, "SELECT * FROM tb_footer WHERE id='$id'");
+                        $data = mysqli_fetch_array($query);
+                        ?>
+                        <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Footer</h3>
-                                    <div class="card-tools">
-                                        <a href="footer/index.php?id=1&page=about" class="btn btn-info">Kembali</a>
-                                    </div>
+                                    <h3 class="card-title">Pengaturan Footer</h3>
                                 </div>
+                                <div class="card-header">
+                                    <form method="post" enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <input type="hidden" name="id" value="<?= $data['id'] ?>">
 
-                                <form method="post" enctype="multipart/form-data">
-                                    <div class="card-body">
-                                        <?php
-                                        include '../../config.php';
-                                        $id = $_GET['id'];
-                                        $footer = mysqli_query($koneksi, "SELECT * FROM tb_footer WHERE id='$id'");
-                                        $data = mysqli_fetch_array($footer);
-                                        ?>
+                                            <div class="form-group">
+                                                <label for="isi1">Nama Perusahaan</label>
+                                                <input class="form-control" name="nama_perusahaan"
+                                                    value="<?= $data['nama_perusahaan'] ?>">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="isi1">Deskripsi Perusahaan</label>
+                                                <input class="form-control" name="post_deskripsi"
+                                                    value="<?= $data['deskripsi'] ?>">
+                                                </input>
+                                            </div>
 
-                                        <input type="hidden" name="id" value="<?= $data['id'] ?>">
-
-                                        <div class="form-group">
-                                            <label for="isi1">Isi Pertama</label>
-                                            <textarea type="text" class="form-control" name="isi1"
-                                                value="<?= $data['isi1'] ?>"></textarea>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="isi2">Isi Kedua</label>
-                                            <textarea type="text" class="form-control" name="isi2"
-                                                value="<?= $data['isi2'] ?>"></textarea>
+                                        <div class="card-footer">
+                                            <button class="btn btn-primary" type="submit"
+                                                name="ubah_pengaturan">Simpan</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Link Medsos</h3>
+                                </div>
+                                <div class="card-header">
+                                    <form method="post" enctype="multipart/form-data">
+                                        <div class="card-body">
+                                            <input type="hidden" name="id" value="<?= $data['id'] ?>">
+
+                                            <div class="form-group">
+                                                <label for="isi1">Link Facebook</label>
+                                                <input class="form-control" name="link_fb"
+                                                    value="<?= $data['link_fb'] ?>">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="isi1">Link Instagram</label>
+                                                <input class="form-control" name="link_ig"
+                                                    value="<?= $data['link_ig'] ?>">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="isi1">Link Twitter</label>
+                                                <input class="form-control" name="link_tw"
+                                                    value="<?= $data['link_twitter'] ?>">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="isi1">Link Linkedin</label>
+                                                <input class="form-control" name="link_lk"
+                                                    value="<?= $data['link_lk'] ?>">
+                                                </input>
+                                            </div>
+
                                         </div>
 
-                                        <div class="form-group" enctype="multipart/form-data">
-                                            <label for="image">Gambar</label>
-                                            <input type="file" class="form-control" name="image">
+                                        <div class="card-footer">
+                                            <button class="btn btn-primary" type="submit"
+                                                name="ubah_sosmed">Simpan</button>
                                         </div>
-                                    </div>
-
-                                    <div class="card-footer">
-                                        <button class="btn btn-primary" type="submit" name="update">Simpan</button>
-                                    </div>
-                                </form>
-
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -168,6 +191,16 @@ if (isset($_POST['update'])) {
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
+
+<script>
+    setTimeout(function () {
+        var alert = document.querySelector('.alert');
+        if (alert) {
+            alert.remove();
+        }
+    }, 3000);
+</script>
+
 
 </body>
 

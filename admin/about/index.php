@@ -21,7 +21,6 @@ if (isset($_POST['update'])) {
             echo "Tipe file yang diunggah tidak didukung. Harap unggah file JPG atau PNG.";
             exit;
         }
-
         // Mengambil informasi file yang diunggah
         $fileName = $file['name'];
         $fileTmpName = $file['tmp_name'];
@@ -34,15 +33,13 @@ if (isset($_POST['update'])) {
 
         // Memindahkan file ke direktori tujuan
         $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-        $uniqueFileName = 'upload_' . date('YmdHis') . '_';
-        $upload = ($uniqueFileName . $fileName);
-        $uploaddb = ($uniqueFileName . $fileName);
+        $upload = ($fileName);
         if (move_uploaded_file($fileTmpName, $uploadDir . $upload)) {
             // Melakukan query UPDATE setelah file berhasil diunggah
             // Menghapus gambar lama jika ada
             $query_about = mysqli_query($koneksi, "SELECT * FROM tb_about WHERE id='$id'");
             $data = mysqli_fetch_array($query_about);
-            $row_gambar = $data['image'];
+            $row_gambar = $data['cover'];
 
             if (!empty($fileName) && $fileName !== $row_gambar) {
                 $oldImagePath = $uploadDir . $row_gambar;
@@ -51,7 +48,7 @@ if (isset($_POST['update'])) {
                 }
             }
 
-            $result = mysqli_query($koneksi, "UPDATE tb_about SET isi1='$isi1', isi2='$isi2','image='$uploaddb WHERE id='$id'");
+            $result = mysqli_query($koneksi, "UPDATE tb_about SET isi1='$isi1', isi2='$isi2', cover='$upload' WHERE id='$id'");
 
             if ($result) {
                 echo "<script>window.location.href = '../../admin/about/index.php?id=1&page=about';</script>";
@@ -130,19 +127,23 @@ if (isset($_POST['update'])) {
 
                                         <div class="form-group">
                                             <label for="isi1">Isi Pertama</label>
-                                            <textarea type="text" class="form-control" name="isi1"
-                                                value="<?= $data['isi1'] ?>"></textarea>
+                                            <textarea class="form-control" name="isi1"><?= $data['isi1'] ?></textarea>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="isi2">Isi Kedua</label>
-                                            <textarea type="text" class="form-control" name="isi2"
-                                                value="<?= $data['isi2'] ?>"></textarea>
+                                            <textarea class="form-control" name="isi2"><?= $data['isi2'] ?></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="isi2">Gambar</label></br>
+                                            <td><img src="../about/image/<?= $data['cover'] ?>" width="300"></td>
                                         </div>
 
                                         <div class="form-group" enctype="multipart/form-data">
-                                            <label for="image">Gambar</label>
+                                            <label for="image">Ubah Gambar</label>
                                             <input type="file" class="form-control" name="image">
+
                                         </div>
                                     </div>
 
