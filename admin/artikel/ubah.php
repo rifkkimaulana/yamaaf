@@ -7,17 +7,18 @@ include("../../config.php");
 include('session.php');
 
 if (isset($_POST['update'])) {
-    $judul_artikel = @$_POST['judul_artikel'];
+    $artikel_id = isset($_GET['id']) ? $_GET['id'] : '';
+
+    $judul_artikel = $_POST['judul_artikel'];
     $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($_POST["judul_artikel"])));
     $created_time = date("Y-m-d H:i:s");
     $user_id = $_SESSION['id'];
-    $kategori = @$_POST['kategori'];
-    $content_artikel = @$_POST['content_artikel'];
+    $kategori = $_POST['kategori'];
+    $content_artikel = $_POST['content_artikel'];
 
     // Memeriksa apakah ada file gambar yang diunggah
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $file = $_FILES['image'];
-        $id_kategori = isset($_POST['id_kategori']) ? $_POST['id_kategori'] : $data['id_kategori'];
 
         // Memeriksa tipe file
         $allowedTypes = array('image/jpeg', 'image/png');
@@ -40,15 +41,14 @@ if (isset($_POST['update'])) {
         // Memindahkan file ke direktori tujuan
         $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
         $uniqueFileName = 'upload_' . date('YmdHis') . '_';
-        $upload = ($uniqueFileName . $fileName);
-        $uploaddb = ($uniqueFileName . $fileName);
+        $upload = $uniqueFileName . $fileName;
+        $uploaddb = $uniqueFileName . $fileName;
         if (move_uploaded_file($fileTmpName, $uploadDir . $upload)) {
             // Melakukan query UPDATE setelah file berhasil diunggah
             // Menghapus gambar lama jika ada
-            $artikel_id = $_GET['id'];
             $query_artikel = mysqli_query($koneksi, "SELECT * FROM tb_artikel WHERE id='$artikel_id'");
             $data = mysqli_fetch_array($query_artikel);
-            $row_gambar = $data['image'];
+            $row_gambar = $data['cover'];
 
             if (!empty($fileName) && $fileName !== $row_gambar) {
                 $oldImagePath = $uploadDir . $row_gambar;
@@ -59,7 +59,7 @@ if (isset($_POST['update'])) {
 
             $result = mysqli_query($koneksi, "UPDATE tb_artikel SET judul_artikel='$judul_artikel', content_artikel='$content_artikel', id_kategori='$kategori', user_id='$user_id', created_time='$created_time', image='$uploaddb' WHERE id='$artikel_id'");
 
-            if ($result) {
+            if (mysqli_affected_rows($koneksi) > 0) {
                 echo "<script>window.location.href = '../../admin/dashboard.php?page=artikel';</script>";
                 exit;
             } else {
@@ -67,15 +67,14 @@ if (isset($_POST['update'])) {
                 exit;
             }
         } else {
-            echo "<script>alert('Gagal mengunggah file!');</script>";
+            echo "Gagal memindahkan file ke direktori tujuan.";
             exit;
         }
     } else {
-        $artikel_id = $_GET['id'];
-        // Tidak ada file gambar yang diunggah, hanya mengubah data produk
-        $result = mysqli_query($koneksi, "UPDATE tb_produk SET judul_artikel='$judul_artikel', content_artikel='$content_artikel', id_kategori='$kategori', user_id='$user_id', created_time='$created_time' WHERE id='$artikel_id'");
+        // Tidak ada file gambar yang diunggah, hanya mengubah data artikel
+        $result = mysqli_query($koneksi, "UPDATE tb_artikel SET judul_artikel='$judul_artikel', content_artikel='$content_artikel', id_kategori='$kategori', user_id='$user_id', created_time='$created_time' WHERE id='$artikel_id'");
 
-        if ($result) {
+        if (mysqli_affected_rows($koneksi) > 0) {
             echo "<script>alert('Artikel berhasil diubah!');</script>";
             echo "<script>window.location.href = '../../admin/dashboard.php?page=artikel';</script>";
             exit;
@@ -127,26 +126,26 @@ if (isset($_POST['update'])) {
                                 <form method="post" enctype="multipart/form-data">
                                     <div class="card-body">
                                         <?php
-                                        $artikel_id = $_GET['id'];
+                                        $artikel_id = isset($_GET['id']) ? $_GET['id'] : '';
                                         $artikel = mysqli_query($koneksi, "SELECT * FROM tb_artikel WHERE id='$artikel_id'");
                                         $data = mysqli_fetch_array($artikel);
                                         ?>
 
-                                        <input type="hidden" name="id_artikel" value="<?= $data['id'] ?>">
+                                        <input type="hidden" name="id_artikel" value="<?= $data['id']; ?>">
 
-                                        <div class="form-group" enctype="multipart/form-data">
+                                        <div class="form-group">
                                             <label for="judul_artikel">Judul Artikel</label>
-                                            <input type="text" class="form-control" name="judul_artikel" required
-                                                autofocus>
+                                            <input type="text" class="form-control" name="judul_artikel"
+                                                value="<?= $data['judul_artikel']; ?>" required>
                                         </div>
 
-                                        <div class="form-group" enctype="multipart/form-data">
+                                        <div class="form-group">
                                             <label for="content_artikel">Content</label>
-                                            <textarea type="text" class="form-control" name="content_artikel"
-                                                required></textarea>
+                                            <textarea class="form-control" name="content_artikel"
+                                                required><?= $data['content_artikel'] ?? ''; ?></textarea>
                                         </div>
 
-                                        <div class="form-group" enctype="multipart/form-data">
+                                        <div class="form-group">
                                             <label for="image">Gambar</label>
                                             <input type="file" class="form-control" name="image">
                                         </div>
@@ -158,19 +157,18 @@ if (isset($_POST['update'])) {
                                                 <?php
                                                 $query = mysqli_query($koneksi, "SELECT * FROM tb_kategori_artikel ORDER BY id DESC");
                                                 while ($data = mysqli_fetch_array($query)) {
-                                                    echo "<option value='" . $data['id'] . "'>" . $data['kategori_artikel'] . "</option>";
+                                                    $selected = ($data['id'] == $kategori) ? "selected" : "";
+                                                    echo "<option value='" . $data['id'] . "' " . $selected . ">" . $data['kategori_artikel'] . "</option>";
                                                 }
                                                 ?>
                                             </select>
                                         </div>
-
                                     </div>
 
                                     <div class="card-footer">
-                                        <button class="btn btn-primary" type="submit" name="update">Simpan</button>
+                                        <button type="submit" name="update" class="btn btn-primary">Update</button>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -179,17 +177,14 @@ if (isset($_POST['update'])) {
         </div>
 
         <?php include('../pages/footer.php'); ?>
-
     </div>
-</body>
 
-<!-- jQuery -->
-<script src="../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../dist/js/adminlte.min.js"></script>
-
+    <!-- jQuery -->
+    <script src="../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../dist/js/adminlte.min.js"></script>
 </body>
 
 </html>

@@ -112,7 +112,8 @@ if (isset($_POST['update'])) {
                                 <div class="card-header">
                                     <h3 class="card-title">Data About</h3>
                                     <div class="card-tools">
-                                        <a href="about/index.php?id=1&page=about" class="btn btn-info">Kembali</a>
+                                        <a href="../dashboar/about/index.php?page=about"
+                                            class="btn btn-info">Kembali</a>
                                     </div>
                                 </div>
 

@@ -54,8 +54,7 @@ if (isset($_POST['update'])) {
                                     <h3 class="card-title">Data kategori Artikel</h3>
 
                                     <div class="card-tools">
-                                        <a href="<?= $base_url_admin ?>/dashboard.php?page=kategori_artikel"
-                                            class="btn btn-info">Kembali</a>
+                                        <a href="dashboard.php?page=kategori_artikel" class="btn btn-info">Kembali</a>
                                     </div>
 
                                 </div>
