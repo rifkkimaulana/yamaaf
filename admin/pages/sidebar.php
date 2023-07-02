@@ -66,11 +66,11 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= $base_url ?>admin/dashboard.php?page=gallery"
-                        class="nav-link <?php echo ($page == 'gallery') ? 'active' : ''; ?>">
+                    <a href="<?= $base_url ?>admin/dashboard.php?page=faq"
+                        class="nav-link <?php echo ($page == 'faq') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-pen"></i>
                         <p>
-                            Gallery
+                            FAQ
                         </p>
                     </a>
                 </li>
@@ -79,7 +79,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                         class="nav-link <?php echo ($page == 'about') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-tag"></i>
                         <p>
-                            about
+                            About
                         </p>
                     </a>
                 </li>

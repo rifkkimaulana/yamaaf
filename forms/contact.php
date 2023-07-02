@@ -1,41 +1,33 @@
 <?php
-  /**
-  * Requires the "PHP Email Form" library
-  * The "PHP Email Form" library is available only in the pro version of the template
-  * The library should be uploaded to: vendor/php-email-form/php-email-form.php
-  * For more info and help: https://bootstrapmade.com/php-email-form/
-  */
+// Pastikan Anda telah membuat koneksi ke database sebelumnya
+// Misalnya dengan menggunakan kode berikut:
+// $koneksi = mysqli_connect("nama_host", "username", "password", "nama_database");
 
-  // Replace contact@example.com with your real receiving email address
-  $receiving_email_address = 'contact@example.com';
+// Fungsi ini akan memastikan bahwa data yang dikirimkan aman dan bersih sebelum dimasukkan ke database
+include '../config.php';
+function sanitizeData($data)
+{
+  global $koneksi;
+  return mysqli_real_escape_string($koneksi, htmlspecialchars(trim($data)));
+}
 
-  if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
-    include( $php_email_form );
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // Ambil data dari form dan bersihkan dengan fungsi sanitizeData
+  $name = sanitizeData($_POST['name']);
+  $email = sanitizeData($_POST['email']);
+  $subject = sanitizeData($_POST['subject']);
+  $message = sanitizeData($_POST['message']);
+
+  // Query INSERT data ke tabel tb_kontak2
+  $query = "INSERT INTO tb_kontak2 (nama, email, subjek, pesan) VALUES ('$name', '$email', '$subject', '$message')";
+
+  // Jalankan query
+  if (mysqli_query($koneksi, $query)) {
+    // Data berhasil disimpan
+    echo "success";
   } else {
-    die( 'Unable to load the "PHP Email Form" Library!');
+    // Jika terjadi kesalahan saat menyimpan data
+    echo "error";
   }
-
-  $contact = new PHP_Email_Form;
-  $contact->ajax = true;
-  
-  $contact->to = $receiving_email_address;
-  $contact->from_name = $_POST['name'];
-  $contact->from_email = $_POST['email'];
-  $contact->subject = $_POST['subject'];
-
-  // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
-  /*
-  $contact->smtp = array(
-    'host' => 'example.com',
-    'username' => 'example',
-    'password' => 'pass',
-    'port' => '587'
-  );
-  */
-
-  $contact->add_message( $_POST['name'], 'From');
-  $contact->add_message( $_POST['email'], 'Email');
-  $contact->add_message( $_POST['message'], 'Message', 10);
-
-  echo $contact->send();
+}
 ?>

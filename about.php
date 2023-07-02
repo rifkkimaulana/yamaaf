@@ -14,7 +14,7 @@
                     $resultAbout = $koneksi->query($queryAbout);
                     if ($resultAbout && $resultAbout->num_rows > 0) {
                         $rowAbout = $resultAbout->fetch_assoc();
-                        $image = $rowAbout['image']; ?>
+                        $image = $rowAbout['cover']; ?>
                         <img src="admin/about/image/<?php echo $image; ?>" class="img-fluid" alt="" />
                     <?php } ?>
                 </div>
@@ -29,7 +29,7 @@
                         $rowAbout = $resultAbout->fetch_assoc();
                         $paragraph1 = $rowAbout['isi1'];
                         $paragraph2 = $rowAbout['isi2'];
-                        $image = $rowAbout['image'];
+                        $image = $rowAbout['cover'];
                         ?>
                         <p class="fst-italic">
                             <?php echo $paragraph1; ?>

@@ -23,8 +23,8 @@
                 case 'pengaturan':
                     include "pengaturan/content-header.php";
                     break;
-                case 'gallery':
-                    include "gallery/content-header.php";
+                case 'faq':
+                    include "faq/content-header.php";
                     break;
                 case 'produk':
                     include "produk/content-header.php";

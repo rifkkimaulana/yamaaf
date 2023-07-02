@@ -82,9 +82,9 @@
         <?php
         include '../config.php';
         // Query untuk mendapatkan data artikel
-        $query = "SELECT a.*, k.kategori_artikel
+        $query = "SELECT a.*, k.kategori
               FROM tb_artikel a
-              INNER JOIN tb_kategori_artikel k ON a.id_kategori = k.id
+              INNER JOIN tb_kategori k ON a.id_kategori = k.id
               ORDER BY a.created_time DESC";
 
         $result = mysqli_query($koneksi, $query);
@@ -94,7 +94,7 @@
           $id = $row['id'];
           $judul = $row['judul_artikel'];
           $konten = $row['content_artikel'];
-          $kategori = $row['kategori_artikel'];
+          $kategori = $row['kategori'];
           $cover = $row['cover'];
           $created_time = $row['created_time'];
           $slug = $row['slug'];

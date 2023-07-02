@@ -8,7 +8,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Data Produk</h3>
                         <div class="card-tools">
-                            <a href='produk/create.php?page=produk' class="btn btn-info">
+                            <a href='produk/tambah.php?page=produk' class="btn btn-info">
                                 <i class="fas fa-plus"></i> Tambah Produk
                             </a>
                         </div>
@@ -34,7 +34,7 @@
                                               INNER JOIN tb_kategori ON tb_produk.id_kategori = tb_kategori.id
                                               ORDER BY tb_produk.id DESC";
 
-                                    $result = mysqli_query($mysqli, $query);
+                                    $result = mysqli_query($koneksi, $query);
                                     if (mysqli_num_rows($result) > 0) {
                                         $no = 1;
 
@@ -59,9 +59,9 @@
                                                 <td><img src="produk/image/<?= $data['image'] ?>" width="100"></td>
                                                 <td>
                                                     <a class="btn btn-success"
-                                                        href='produk/update.php?id=<?= $data['id'] ?>&page=produk'>Edit</a>
+                                                        href='produk/ubah.php?id=<?= $data['id'] ?>&page=produk'>Edit</a>
                                                     <a class="btn btn-danger" onclick='return confirmDelete()'
-                                                        href='produk/delete.php?id=<?= $data['id'] ?>&page=produk'>Hapus</a>
+                                                        href='produk/hapus.php?id=<?= $data['id'] ?>&page=produk'>Hapus</a>
                                                 </td>
                                             </tr>
                                             <?php

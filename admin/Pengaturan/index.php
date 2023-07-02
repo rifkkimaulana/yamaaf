@@ -131,24 +131,24 @@ if (isset($_POST['ubah_sosmed'])) {
                                                 </input>
                                             </div>
                                             <div class="form-group">
-                                                <label for="isi1">Alamat 1</label>
-                                                <input class="form-control" name="alamat2"
+                                                <label for="alamat1">Alamat 1</label>
+                                                <input class="form-control" name="alamat1"
                                                     value="<?= $data2['alamat1'] ?>">
                                                 </input>
                                             </div>
                                             <div class="form-group">
-                                                <label for="isi1">Alamat 2</label>
+                                                <label for="alamat2">Alamat 2</label>
                                                 <input class="form-control" name="alamat2"
                                                     value="<?= $data2['alamat2'] ?>">
                                                 </input>
                                             </div>
                                             <div class="form-group">
-                                                <label for="isi1">Alamat Email</label>
+                                                <label for="email">Alamat Email</label>
                                                 <input class="form-control" name="gmail" value="<?= $data2['gmail'] ?>">
                                                 </input>
                                             </div>
                                             <div class="form-group">
-                                                <label for="isi1">No Telpon</label>
+                                                <label for="nohp">No Telpon</label>
                                                 <input class="form-control" name="nohp" value="<?= $data2['nohp'] ?>">
                                                 </input>
                                             </div>

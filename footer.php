@@ -4,6 +4,10 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
+                    <?php
+                    $query = mysqli_query($koneksi, "SELECT * FROM tb_footer WHERE id='1' ");
+                    $data = mysqli_fetch_assoc($query);
+                    ?>
                     <a href="#header" class="scrollto footer-logo"><img src="assets/img/hero-logo.png" alt="" /></a>
                     <h3>
                         <?php $namaperusahaan = $data['nama_perusahaan'];

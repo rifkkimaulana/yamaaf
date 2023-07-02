@@ -22,8 +22,8 @@
                 case 'pengaturan':
                     include "pengaturan/index.php";
                     break;
-                case 'gallery':
-                    include "gallery/index.php";
+                case 'faq':
+                    include "faq/index.php";
                     break;
                 case 'produk':
                     include "produk/index.php";

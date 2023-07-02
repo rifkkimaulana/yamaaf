@@ -1,14 +1,11 @@
 <?php
 include 'config.php';
 
-$query = mysqli_query($koneksi, "SELECT * FROM tb_footer WHERE id='1' ");
-$data = mysqli_fetch_assoc($query);
 $contac = mysqli_query($koneksi, "SELECT * FROM tb_contact WHERE id='1' ");
 $data1 = mysqli_fetch_assoc($contac);
+
 $faq = mysqli_query($koneksi, "SELECT * FROM tb_faq WHERE id='1' ");
 $data2 = mysqli_fetch_assoc($faq);
-$gallery = mysqli_query($koneksi, "SELECT * FROM tb_gallery WHERE id='1' ");
-$data3 = mysqli_fetch_assoc($faq);
 ?>
 <?php
 //UPLOAD KE TB_LIHAT
@@ -110,6 +107,7 @@ $koneksi->close();
   </main>
   <!-- End #main -->
   <?php include 'footer.php'; ?>
+
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
 
