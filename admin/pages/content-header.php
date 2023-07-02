@@ -29,6 +29,9 @@
                 case 'produk':
                     include "produk/content-header.php";
                     break;
+                case 'team':
+                    include "team/content-header.php";
+                    break;
                 default:
                     echo "<center><h3>Maaf. Halaman tidak ditemukan!</h3></center>";
                     break;

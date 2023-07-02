@@ -28,6 +28,9 @@
                 case 'produk':
                     include "produk/index.php";
                     break;
+                case 'team':
+                    include "team/index.php";
+                    break;
                 default:
                     echo "<center><h3>Maaf. Halaman tidak ditemukan!</h3></center>";
                     break;
