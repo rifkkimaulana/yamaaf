@@ -65,20 +65,11 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= $base_url ?>admin/footer/index.php?id=1&page=footer"
+                    <a href="<?= $base_url ?>admin/footer/index.php?id=1&page=pengaturan"
                         class="nav-link <?php echo ($page == 'footer') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-tag"></i>
                         <p>
-                            Footer
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= $base_url ?>admin/contact/index.php?id=1&page=contact"
-                        class="nav-link <?php echo ($page == 'contact') ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-tag"></i>
-                        <p>
-                            Contact
+                            Pengaturan
                         </p>
                     </a>
                 </li>
