@@ -1,4 +1,5 @@
-<?php include 'config.php';
+<?php
+include 'config.php';
 
 $query = mysqli_query($koneksi, "SELECT * FROM tb_footer WHERE id='1' ");
 $data = mysqli_fetch_assoc($query);
@@ -8,6 +9,21 @@ $faq = mysqli_query($koneksi, "SELECT * FROM tb_faq WHERE id='1' ");
 $data2 = mysqli_fetch_assoc($faq);
 $gallery = mysqli_query($koneksi, "SELECT * FROM tb_gallery WHERE id='1' ");
 $data3 = mysqli_fetch_assoc($faq);
+?>
+<?php
+//UPLOAD KE TB_LIHAT
+$waktu_lihat = date("Y-m-d H:i:s");
+$ip = $_SERVER['REMOTE_ADDR'];
+$browser = $_SERVER['HTTP_USER_AGENT'];
+
+$query = "INSERT INTO tb_lihat (waktu_lihat, ip_address, browser) VALUES (?, ?, ?)";
+$stmt = $koneksi->prepare($query);
+$stmt->bind_param("sss", $waktu_lihat, $ip, $browser);
+$stmt->execute();
+$stmt->close();
+
+$koneksi->close();
+//END UPLOAD KE TB_LIHAT
 ?>
 <!DOCTYPE html>
 <html lang="en">

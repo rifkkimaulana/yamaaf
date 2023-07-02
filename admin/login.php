@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BNC Login</title>
+    <title>PT YAMAAF</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="row">
                         <!-- /.col -->
-                        <div class="col-4">
+                        <div class="col-12">
                             <button type="submit" class="btn btn-primary btn-block" name="submit">Login</button>
                         </div>
                         <!-- /.col -->
