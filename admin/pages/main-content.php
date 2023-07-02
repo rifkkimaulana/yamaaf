@@ -22,6 +22,9 @@
                 case 'pengaturan':
                     include "pengaturan/index.php";
                     break;
+                case 'gallery':
+                    include "gallery/index.php";
+                    break;
                 default:
                     echo "<center><h3>Maaf. Halaman tidak ditemukan!</h3></center>";
                     break;
