@@ -58,7 +58,7 @@ include_once("../config.php");
                                             <td>
                                                 <?= $data['content_artikel'] ?>
                                             </td>
-                                            <td><img src="artikel/image/<?= $data['cover'] ?>" width="100"></td>
+                                            <td><img src="../admin/artikel/image/<?= $data['cover'] ?>" width="100"></td>
                                             <td class="text-center">
                                                 <a class="btn btn-success"
                                                     href='artikel/ubah.php?id=<?= $data['id'] ?>&page=artikel'>Edit</a>

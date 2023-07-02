@@ -57,7 +57,7 @@ if (isset($_POST['update'])) {
                 }
             }
 
-            $result = mysqli_query($koneksi, "UPDATE tb_artikel SET judul_artikel='$judul_artikel', content_artikel='$content_artikel', id_kategori='$kategori', user_id='$user_id', created_time='$created_time', image='$uploaddb' WHERE id='$artikel_id'");
+            $result = mysqli_query($koneksi, "UPDATE tb_artikel SET judul_artikel='$judul_artikel', content_artikel='$content_artikel', id_kategori='$kategori', user_id='$user_id', created_time='$created_time', cover='$uploaddb' WHERE id='$artikel_id'");
 
             if (mysqli_affected_rows($koneksi) > 0) {
                 echo "<script>window.location.href = '../../admin/dashboard.php?page=artikel';</script>";
