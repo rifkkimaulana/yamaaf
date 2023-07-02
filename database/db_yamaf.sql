@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Jul 2023 pada 03.58
--- Versi server: 10.4.25-MariaDB
--- Versi PHP: 7.4.30
+-- Generation Time: Jul 02, 2023 at 05:47 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_about`
+-- Table structure for table `tb_about`
 --
 
 CREATE TABLE `tb_about` (
@@ -35,7 +35,7 @@ CREATE TABLE `tb_about` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_about`
+-- Dumping data for table `tb_about`
 --
 
 INSERT INTO `tb_about` (`id`, `isi1`, `isi2`, `image`) VALUES
@@ -44,7 +44,7 @@ INSERT INTO `tb_about` (`id`, `isi1`, `isi2`, `image`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_artikel`
+-- Table structure for table `tb_artikel`
 --
 
 CREATE TABLE `tb_artikel` (
@@ -59,7 +59,7 @@ CREATE TABLE `tb_artikel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_artikel`
+-- Dumping data for table `tb_artikel`
 --
 
 INSERT INTO `tb_artikel` (`id`, `judul_artikel`, `content_artikel`, `cover`, `user_id`, `created_time`, `id_kategori`, `slug`) VALUES
@@ -68,7 +68,48 @@ INSERT INTO `tb_artikel` (`id`, `judul_artikel`, `content_artikel`, `cover`, `us
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_footer`
+-- Table structure for table `tb_contact`
+--
+
+CREATE TABLE `tb_contact` (
+  `id` int(11) NOT NULL,
+  `alamat1` varchar(100) NOT NULL,
+  `alamat2` varchar(100) NOT NULL,
+  `gmail` varchar(100) NOT NULL,
+  `nohp` varchar(100) NOT NULL,
+  `deskripsi` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_contact`
+--
+
+INSERT INTO `tb_contact` (`id`, `alamat1`, `alamat2`, `gmail`, `nohp`, `deskripsi`) VALUES
+(1, 'asd', 'acd', 'aadf', 'wer', 'jayalah trus');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_faq`
+--
+
+CREATE TABLE `tb_faq` (
+  `id` int(11) NOT NULL,
+  `pertanyaan` varchar(110) NOT NULL,
+  `jawaban` varchar(110) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_faq`
+--
+
+INSERT INTO `tb_faq` (`id`, `pertanyaan`, `jawaban`) VALUES
+(1, 'apakah anda lapar', 'ya saya lapar sekali');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_footer`
 --
 
 CREATE TABLE `tb_footer` (
@@ -81,10 +122,37 @@ CREATE TABLE `tb_footer` (
   `link_lk` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tb_footer`
+--
+
+INSERT INTO `tb_footer` (`id`, `nama_perusahaan`, `deskripsi`, `link_fb`, `link_ig`, `link_twitter`, `link_lk`) VALUES
+(1, 'PT.YAMAAF', 'Ciptakan nilai bersama, untuk meningkatkan kesejahteraan', 'abcd', 'asa', 'aa', 'sa');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_kategori_artikel`
+-- Table structure for table `tb_gallery`
+--
+
+CREATE TABLE `tb_gallery` (
+  `id` int(11) NOT NULL,
+  `motor_besar` varchar(225) NOT NULL,
+  `motor_kecil` text NOT NULL,
+  `matic` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_gallery`
+--
+
+INSERT INTO `tb_gallery` (`id`, `motor_besar`, `motor_kecil`, `matic`) VALUES
+(1, 'motor ', 'motor kecil', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_kategori_artikel`
 --
 
 CREATE TABLE `tb_kategori_artikel` (
@@ -93,7 +161,7 @@ CREATE TABLE `tb_kategori_artikel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_kategori_artikel`
+-- Dumping data for table `tb_kategori_artikel`
 --
 
 INSERT INTO `tb_kategori_artikel` (`id`, `kategori_artikel`) VALUES
@@ -102,7 +170,7 @@ INSERT INTO `tb_kategori_artikel` (`id`, `kategori_artikel`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_users`
+-- Table structure for table `tb_users`
 --
 
 CREATE TABLE `tb_users` (
@@ -113,7 +181,7 @@ CREATE TABLE `tb_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tb_users`
+-- Dumping data for table `tb_users`
 --
 
 INSERT INTO `tb_users` (`id`, `nama`, `username`, `password`) VALUES
@@ -125,47 +193,65 @@ INSERT INTO `tb_users` (`id`, `nama`, `username`, `password`) VALUES
 --
 
 --
--- Indeks untuk tabel `tb_about`
+-- Indexes for table `tb_about`
 --
 ALTER TABLE `tb_about`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tb_artikel`
+-- Indexes for table `tb_artikel`
 --
 ALTER TABLE `tb_artikel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tb_kategori_artikel`
+-- Indexes for table `tb_contact`
+--
+ALTER TABLE `tb_contact`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_faq`
+--
+ALTER TABLE `tb_faq`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_kategori_artikel`
 --
 ALTER TABLE `tb_kategori_artikel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tb_users`
+-- Indexes for table `tb_users`
 --
 ALTER TABLE `tb_users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tb_artikel`
+-- AUTO_INCREMENT for table `tb_artikel`
 --
 ALTER TABLE `tb_artikel`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_kategori_artikel`
+-- AUTO_INCREMENT for table `tb_faq`
+--
+ALTER TABLE `tb_faq`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tb_kategori_artikel`
 --
 ALTER TABLE `tb_kategori_artikel`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_users`
+-- AUTO_INCREMENT for table `tb_users`
 --
 ALTER TABLE `tb_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
