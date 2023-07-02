@@ -1,17 +1,13 @@
 <?php
 include 'config.php';
 
-$id = $_GET['id'];
+$keyword = $_GET['keyword'];
 
-$query = mysqli_query($koneksi, "SELECT * FROM tb_produk WHERE id = $id");
-$data = mysqli_fetch_assoc($query);
+$query = "SELECT * FROM tb_produk WHERE nama_produk LIKE '%$keyword%'";
+$result = mysqli_query($koneksi, $query);
 
-$id_kategori = $data['id_kategori'];
-$query_kategori = mysqli_query($koneksi, "SELECT kategori FROM tb_kategori WHERE id = $id_kategori");
-$kategori = mysqli_fetch_assoc($query_kategori);
-
-mysqli_close($koneksi);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +15,7 @@ mysqli_close($koneksi);
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Detail Produk</title>
+  <title>Search Results</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -82,79 +78,56 @@ mysqli_close($koneksi);
 
   <main id="main" data-aos="fade-up">
 
-    <!-- ======= Breadcrumbs ======= -->
-    <section id="breadcrumbs" class="breadcrumbs">
+    <section class="breadcrumbs">
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Produk Details</h2>
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li>Produk Details</li>
-          </ol>
+          <h2>Search Results</h2>
         </div>
 
       </div>
-    </section><!-- End Breadcrumbs -->
+    </section>
 
-    <!-- ======= Portfolio Details Section ======= -->
-    <section id="portfolio-details" class="portfolio-details">
+    <section class="inner-page">
       <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper">
-              <div class="swiper-wrapper align-items-center">
-
-                <div class="swiper-slide">
-                  <img src="admin/produk/image/<?php echo $data['image']; ?>" alt="<?php echo $data['nama_produk']; ?>">
-                </div>
-
-
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <?php
+            if (mysqli_num_rows($result) > 0) {
+              while ($row = mysqli_fetch_assoc($result)) {
+                // Menampilkan informasi produk
+                echo '<div class="card mb-3">';
+                echo '<div class="row g-0">';
+                echo '<div class="col-md-4">';
+                echo '<a href="detail_produk.php?id=' . $row['id'] . '"><img src="admin/produk/image/' . $row['image'] . '" class="img-fluid rounded-start" alt="Product Image"></a>';
+                echo '</div>';
+                echo '<div class="col-md-8">';
+                echo '<div class="card-body">';
+                echo '<h5 class="card-title"><a href="product_detail.php?id=' . $row['id'] . '">' . $row['nama_produk'] . '</a></h5>';
+                echo '<p class="card-text">ID: ' . $row['id'] . '</p>';
+                echo '<p class="card-text">Kategori: ' . $row['id_kategori'] . '</p>';
+                echo '<p class="card-text">Harga: ' . $row['harga'] . '</p>';
+                echo '<p class="card-text">Deskripsi: ' . $row['deskripsi'] . '</p>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+              }
+            } else {
+              echo "<p>No results found</p>";
+            }
+            ?>
           </div>
-
-          <div class="col-lg-4">
-            <div class="portfolio-info">
-              <h3>Produk information</h3>
-              <ul>
-                <li><strong>Nama Produk</strong>:
-                  <?php echo $data['nama_produk']; ?>
-                </li>
-                <li><strong>Kategori</strong>:
-                  <?php echo $kategori['kategori']; ?>
-                </li>
-
-                <li><strong>Harga</strong>:
-                  <?php echo number_format($data['harga'], 0, ',', '.'); ?> IDR
-                </li>
-                <li><strong>Deskripsi Produk</strong>:
-                  <?php echo $data['deskripsi']; ?>
-                </li>
-              </ul>
-            </div>
-            <div class="portfolio-description">
-              <h2>
-                <?php echo $data['nama_produk']; ?>
-              </h2>
-              <p>
-                <?php echo $data['deskripsi']; ?>
-              </p>
-            </div>
-          </div>
-
         </div>
-
       </div>
-    </section><!-- End Portfolio Details Section -->
+    </section>
+
 
   </main><!-- End #main -->
 
-
+  <!-- ======= Footer ======= -->
   <?php include 'footer.php'; ?>
+
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
 

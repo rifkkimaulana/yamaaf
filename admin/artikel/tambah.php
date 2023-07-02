@@ -124,9 +124,9 @@ if (isset($_POST['tambah'])) {
                                             <select class="form-control" name="kategori" required>
                                                 <option value="">Pilih Kategori</option>
                                                 <?php
-                                                $query = mysqli_query($koneksi, "SELECT * FROM tb_kategori_artikel ORDER BY id DESC");
+                                                $query = mysqli_query($koneksi, "SELECT * FROM tb_kategori ORDER BY id DESC");
                                                 while ($data = mysqli_fetch_array($query)) {
-                                                    echo "<option value='" . $data['id'] . "'>" . $data['kategori_artikel'] . "</option>";
+                                                    echo "<option value='" . $data['id'] . "'>" . $data['kategori'] . "</option>";
                                                 }
                                                 ?>
                                             </select>

@@ -42,7 +42,7 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto active" href="../">Home</a></li>
           <li><a class="nav-link scrollto" href="../#about">About</a></li>
           <li><a class="nav-link scrollto" href="../#services">Services</a></li>
           <li>
@@ -81,15 +81,13 @@
 
         <?php
         include '../config.php';
-        // Query untuk mendapatkan data artikel
         $query = "SELECT a.*, k.kategori
-              FROM tb_artikel a
-              INNER JOIN tb_kategori k ON a.id_kategori = k.id
-              ORDER BY a.created_time DESC";
+                      FROM tb_artikel a
+                      INNER JOIN tb_kategori k ON a.id_kategori = k.id
+                      ORDER BY a.created_time DESC";
 
         $result = mysqli_query($koneksi, $query);
 
-        // Loop melalui setiap artikel
         while ($row = mysqli_fetch_assoc($result)) {
           $id = $row['id'];
           $judul = $row['judul_artikel'];
@@ -107,13 +105,12 @@
             <div class="article-meta">
               <span class="category">
                 <?php echo 'Kategori: ', $kategori; ?>
-              </span></br>
+              </span><br>
               <span class="date">
                 <?php echo 'Diposting pada: ', $created_time; ?>
               </span>
             </div>
             <img src="../admin/artikel/image/<?php echo $cover; ?>" width="200">
-
             <p>
               <?php echo $konten; ?>
             </p>
